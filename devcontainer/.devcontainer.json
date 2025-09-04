@@ -1,0 +1,17 @@
+{
+    "name": "graduation-project-dev-con",
+    "dockerComposeFile": ["./docker-compose.yml"],
+    "service": "java",
+    "workspaceFolder": "/graduation",
+    "customizations": {
+        "vscode": {
+            "java.jdt.ls.vmargs": "-javaagent:/usr/local/share/lombok/lombok.jar",
+            "extensions": [
+                "vscjava.vscode-java-pack",
+                "vscjava.vscode-lombok",
+                "vscjava.vscode-gradle",
+                "arjun.swagger-viewer"
+            ]
+        }
+    }
+}

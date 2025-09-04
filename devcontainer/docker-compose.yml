@@ -1,0 +1,48 @@
+version: '3.8'
+services:
+  java:
+    container_name: graduation-java
+    build:
+      context: ./java
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" #必要であれば8081:8080に変更
+    volumes:
+      - "..:/graduation:cached"
+      - type: volume
+        source: graduation-gradle-cache
+        target: /root/.gradle
+    depends_on:
+      - postgres
+    networks:
+      - graduation-network
+    tty: true
+  postgres:
+    container_name: graduation-postgres
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: graduation_db
+    ports:
+      - "5432:5432" #必要であれば5431:5432に変更
+    networks:
+      - graduation-network
+    volumes:
+      - type: volume
+        source: graduation-db-volume
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./postgres/db-init
+        target: /docker-entrypoint-initdb.d
+
+volumes:
+  graduation-db-volume:
+    driver: local
+  graduation-gradle-cache:
+    driver: local
+
+networks:
+  graduation-network:
