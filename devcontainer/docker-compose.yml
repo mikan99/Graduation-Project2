@@ -8,7 +8,7 @@ services:
     ports:
       - "8080:8080" #必要であれば8081:8080に変更
     volumes:
-      - "..:/graduation:cached"
+      - "..:/graduation:cached" #一つ上のgraduationフォルダをマウント
       - type: volume
         source: graduation-gradle-cache
         target: /root/.gradle

@@ -3,22 +3,21 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://serious-postgres:5432/serious_db
+    url: jdbc:postgresql://graduation-postgres:5432/graduation_db
     username: root
     password: root
   cache:
     type: simple
   sql:
     init:
-      mode: never  #never/always
+      mode: always  #never/always
       continue-on-error: false #エラーがあれば起動を中止する
       
       schema-locations:
-        # - classpath:schema.sql
-        # - classpath:schema/01_serious_cases.sql
+        - classpath:schema/01_members.sql
 
       data-locations:
-        # - classpath:data/01_serious_cases.sql
+        - classpath:data/01_members.sql
 
 logging:
   level:
