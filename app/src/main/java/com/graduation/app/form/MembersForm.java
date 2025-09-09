@@ -9,12 +9,15 @@ public class MembersForm {
     private String memberName;
 
     //性別
-    private int sex;
+    private Integer sex;
 
     //社員番号
-    private int employeeNumber;
+    private Integer employeeNumber;
 
     //配属先
     private String bumonName;
+
+    //おごり自販機使用回数
+    private Integer vendingMachine;
 
 }

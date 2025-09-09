@@ -1,12 +1,59 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang = "ja" xmlns:th = "http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+    <link rel = "stylesheet" href = "/style.css">
     <title>研修メンバー検索システム</title>
 </head>
 
 <body>
+    <h3>検索条件</h3>
+    <div class = "searchParameters">
+        <form id = "searchParameters" method = "post" th:object = "${membersForm}">
+            <!-- 検索項目＜氏名＞ -->
+            <div class = "form">
+                <label>氏名</label>
+                <input class = "memberName" type = "text" placeholder="氏名を入力してください" th:field = "*{memberName}">     
+            </div>
+            <!-- 検索項目＜性別＞ -->
+            <div class = "form">
+                <label>性別</label>
+                <select class = "sex" th:field="*{sex}">
+                    <option value = "">-- 選択してください --</option>
+                    <option value = "0">男性</option>
+                    <option value = "1">女性</option>
+                    <option value = "2">その他</option>
+                </select>
+            </div>
+            <!-- 検索項目＜社員番号＞ -->
+            <div class = "form">
+                <label>社員番号</label>
+                <input class = "employeeNumber" type = "text" placeholder="社員番号を入力してください" th:field = "*{employeeNumber}">
+            </div>
+            <!-- 検索項目＜配属先＞ -->
+            <div class = "form">
+                <label>配属先</label>
+                <input class = "bumonName" type = "text" placeholder="配属先を入力してください" th:field = "*{bumonName}">
+            </div>
+            <!-- 検索項目＜おごり自販機回数＞ -->
+            <div class = "form">
+                <label>おごり自販機使用回数</label>
+                <select class = "vendingMachine" th:field = "*{vendingMachine}">
+                    <option value="">-- 選択してください --</option>
+                    <option value="0">０回</option>
+                    <option value="1">１回</option>
+                    <option value="2">２回</option>
+                </select>
+            </div>
+
+            <div class = "button-area">
+                <button type = "button" class = "clearButton", id = "clearBtn">クリア</button>
+                <button type = "submit" class = "searchButton", id = "searchBtn">検索</button>
+            </div>
+        </form>
+    </div>
+
     <h3>検索結果</h3>
     <table>
         <tr>
@@ -15,14 +62,22 @@
             <th>性別</th>
             <th>社員番号</th>
             <th>配属先</th>
+            <th>おごり自販機使用回数（回）</th>
+            <th></th>
         </tr>
         <tr th:each = "membersList : ${membersList}">
-            <td th:text="${membersList.id}" th:value="${membersList.id}"></td>
-            <td th:text="${membersList.memberName}" th:value="${membersList.memberName}"></td>
-            <td th:text="${membersList.sex}" th:value="${membersList.sex}"></td>
-            <td th:text="${membersList.employeeNumber}" th:value="${membersList.employeeNumber}"></td>
-            <td th:text="${membersList.bumonName}" th:value="${membersList.bumonName}"></td>
+            <td th:text = "${membersList.id}" th:value = "${membersList.id}"></td>
+            <td th:text = "${membersList.memberName}" th:value = "${membersList.memberName}"></td>
+            <td th:text = "${membersList.sex == 0 ? '男性' : membersList.sex == 1 ? '女性' : membersList.sex == 2 ? 'その他' : ''}"></td>
+            <td th:text = "${membersList.employeeNumber}" th:value = "${membersList.employeeNumber}"></td>
+            <td th:text = "${membersList.bumonName}" th:value = "${membersList.bumonName}"></td>
+            <td >
+                <span th:text="${membersList.vendingMachine}" th:value="${membersList.id}"></span>
+                <button class="incrementBtn" th:data-id="${membersList.id}" type="button">✚</button>
+            </td>
         </tr>
     </table>
+
+    <script src = "/style.js"></script>
 </body>
 </html>
