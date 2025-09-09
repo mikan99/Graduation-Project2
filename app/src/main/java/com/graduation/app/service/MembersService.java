@@ -14,4 +14,5 @@ public interface MembersService {
     public List<MembersDTO> sendAllMembersDTO(List<Members> MembersList);
     public List<Members> sendAllMembers(List<MembersRecord> MembersRecordList);
 
+    Integer incrementVendingMachine(Integer id);
 }

@@ -33,37 +33,51 @@ public class MembersServiceImpl implements MembersService {
         return membersRepository.selectAll();
     }
 
+    // エンティティをDTOに変換
     @Override
     public List<MembersDTO> sendAllMembersDTO(List<Members> MembersList) {
-        List<MembersDTO> MembersDTOList = new ArrayList<>();
+        List<MembersDTO> membersDTOList = new ArrayList<>();
         for(Members Members : MembersList){
-            MembersDTO MembersDTO = new MembersDTO();
-            MembersDTO.setId(Members.getId());
-            MembersDTO.setMemberName(Members.getMemberName());
-            MembersDTO.setSex(Members.getSex());
-            MembersDTO.setEmployeeNumber(Members.getEmployeeNumber());
-            MembersDTO.setBumonName(Members.getBumonName());
+            MembersDTO membersDTO = new MembersDTO();
+            membersDTO.setId(Members.getId());
+            membersDTO.setMemberName(Members.getMemberName());
+            membersDTO.setSex(Members.getSex());
+            membersDTO.setEmployeeNumber(Members.getEmployeeNumber());
+            membersDTO.setBumonName(Members.getBumonName());
+            membersDTO.setVendingMachine(Members.getVendingMachine());
 
-            MembersDTOList.add(MembersDTO);
+            membersDTOList.add(membersDTO);
         }
 
-        return MembersDTOList;
+        return membersDTOList;
     }
 
+    // レコードをエンティティに変換
     @Override
     public List<Members> sendAllMembers(List<MembersRecord> MembersRecordList) {
-        List<Members> MembersList = new ArrayList<>();
+        List<Members> membersList = new ArrayList<>();
         for(MembersRecord MembersRecord : MembersRecordList){
-            Members Members = new Members();
-            Members.setId(MembersRecord.getId());
-            Members.setMemberName(MembersRecord.getMemberName());
-            Members.setSex(MembersRecord.getSex());
-            Members.setEmployeeNumber(MembersRecord.getEmployeeNumber());
-            Members.setBumonName(MembersRecord.getBumonName());
+            Members members = new Members();
+            members.setId(MembersRecord.getId());
+            members.setMemberName(MembersRecord.getMemberName());
+            members.setSex(MembersRecord.getSex());
+            members.setEmployeeNumber(MembersRecord.getEmployeeNumber());
+            members.setBumonName(MembersRecord.getBumonName());
+            members.setVendingMachine(MembersRecord.getVendingMachine());
 
-            MembersList.add(Members);
+            membersList.add(members);
         }
 
-        return MembersList;
+        return membersList;
+    }
+
+    // ボタンで自販機使用回数を増加
+    @Override
+    public Integer incrementVendingMachine(Integer id) {
+        
+        membersRepository.incrementVendingMachine(id);
+
+        MembersRecord updatRecord = membersRepository.findById(id);
+        return updatRecord.getVendingMachine();
     }
 }
