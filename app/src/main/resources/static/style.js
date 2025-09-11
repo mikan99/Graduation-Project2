@@ -52,6 +52,6 @@ function incrementVendingMachine(id) {
     // 失敗時
     .catch(error => {
         console.error('Error:', error);
-        alert('更新に失敗しました');
+        alert('やろうとはしました');
     });
 }

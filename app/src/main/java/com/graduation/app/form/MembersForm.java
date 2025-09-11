@@ -7,7 +7,7 @@ import lombok.Data;
 public class MembersForm {
     
     //氏名
-    @Max(value = 100, message = "氏名は100文字以内で入力してください")
+    @Max(value = 30, message = "氏名は30文字以内で入力してください")
     private String memberName;
 
     //性別
@@ -18,7 +18,7 @@ public class MembersForm {
     private Integer employeeNumber;
 
     //配属先
-    @Max(value = 50, message = "配属先は50文字以内で入力してください")
+    @Max(value = 30, message = "配属先は30文字以内で入力してください")
     private String bumonName;
 
     //おごり自販機使用回数

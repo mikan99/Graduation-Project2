@@ -38,10 +38,14 @@ public class MembersController{
     // 検索結果
     @PostMapping("/")
     public String postSearch(@Validated MembersForm form, BindingResult bindingResult, Model model){
-        System.out.println("検索条件：" + form);
         List<MembersDTO> membersList = membersService.sortMembers(form);
-        // バリデーションエラーのifあ必要？
+        // 入力エラーチェック
+        if(bindingResult.hasErrors()){
 
+        }
+        else{
+
+        }
         model.addAttribute("membersForm", form);
         model.addAttribute("membersList", membersList);
         

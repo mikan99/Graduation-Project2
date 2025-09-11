@@ -8,62 +8,67 @@
 </head>
 
 <body>
-    <h3>検索条件</h3>
-    <div class = "searchParameters">
+    <p class = "title">研修メンバー検索システム</p>
+    <h2>検索条件</h2>
+    <div class = "searchBox">
         <form id = "searchParameters" method = "post" th:object = "${membersForm}">
-            <!-- 検索項目＜氏名＞ -->
-            <div class = "form">
-                <label>氏名</label>
-                <input class = "memberName" type = "text" placeholder="氏名を入力してください" th:field = "*{memberName}">     
+            <div class = "form-row">
+                <!-- 検索項目＜氏名＞ -->
+                <div class = "form">
+                    <label>氏名</label>
+                    <input class = "memberName" type = "text" placeholder="氏名を入力してください" th:field = "*{memberName}">     
+                </div>
+                <!-- 検索項目＜性別＞ -->
+                <div class = "form">
+                    <label>性別</label>
+                    <select class = "sex" th:field="*{sex}">
+                        <option value = "">-- 選択してください --</option>
+                        <option value = "0">男性</option>
+                        <option value = "1">女性</option>
+                        <option value = "2">その他</option>
+                    </select>
+                </div>
+                <!-- 検索項目＜社員番号＞ -->
+                <div class = "form">
+                    <label>社員番号</label>
+                    <input class = "employeeNumber" type = "text" placeholder="社員番号を入力してください" th:field = "*{employeeNumber}">
+                </div>
             </div>
-            <!-- 検索項目＜性別＞ -->
-            <div class = "form">
-                <label>性別</label>
-                <select class = "sex" th:field="*{sex}">
-                    <option value = "">-- 選択してください --</option>
-                    <option value = "0">男性</option>
-                    <option value = "1">女性</option>
-                    <option value = "2">その他</option>
-                </select>
-            </div>
-            <!-- 検索項目＜社員番号＞ -->
-            <div class = "form">
-                <label>社員番号</label>
-                <input class = "employeeNumber" type = "text" placeholder="社員番号を入力してください" th:field = "*{employeeNumber}">
-            </div>
-            <!-- 検索項目＜配属先＞ -->
-            <div class = "form">
-                <label>配属先</label>
-                <input class = "bumonName" type = "text" placeholder="配属先を入力してください" th:field = "*{bumonName}">
-            </div>
-            <!-- 検索項目＜おごり自販機回数＞ -->
-            <div class = "form">
-                <label>おごり自販機使用回数</label>
-                <select class = "vendingMachine" th:field = "*{vendingMachine}">
-                    <option value="">-- 選択してください --</option>
-                    <option value="0">０回</option>
-                    <option value="1">１回</option>
-                    <option value="2">２回</option>
-                </select>
-            </div>
-
-            <div class = "button-area">
-                <button type = "button" class = "clearButton", id = "clearBtn">クリア</button>
-                <button type = "submit" class = "searchButton", id = "searchBtn">検索</button>
-            </div>
+            <div class = "form-row">
+                <!-- 検索項目＜配属先＞ -->
+                <div class = "form">
+                    <label>配属先</label>
+                    <input class = "bumonName" type = "text" placeholder="配属先を入力してください" th:field = "*{bumonName}">
+                </div>
+                <!-- 検索項目＜おごり自販機回数＞ -->
+                <div class = "form">
+                    <label>おごり自販機使用回数</label>
+                    <select class = "vendingMachine" th:field = "*{vendingMachine}">
+                        <option value="">-- 選択してください --</option>
+                        <option value="0">０回</option>
+                        <option value="1">１回</option>
+                        <option value="2">２回</option>
+                    </select>
+                </div>
+<!--           </div> -->
+                <!-- クリア、検索ボタン -->
+                <div class = "button-area">
+                    <button type = "button" class = "clearButton", id = "clearBtn">クリア</button>
+                    <button type = "submit" class = "searchButton", id = "searchBtn">検索</button>
+                </div>
+          </div>
         </form>
     </div>
 
-    <h3>検索結果</h3>
+    <h2>検索結果</h2>
     <table>
         <tr>
             <th>管理番号</th>
             <th>氏名</th>
             <th>性別</th>
             <th>社員番号</th>
-            <th>配属先</th>
+            <th>配属</th>
             <th>おごり自販機使用回数（回）</th>
-            <th></th>
         </tr>
         <tr th:each = "membersList : ${membersList}">
             <td th:text = "${membersList.id}" th:value = "${membersList.id}"></td>
@@ -71,13 +76,15 @@
             <td th:text = "${membersList.sexLabel}" th:valu = "${membersList.sexLabel}"></td>
             <td th:text = "${membersList.employeeNumber}" th:value = "${membersList.employeeNumber}"></td>
             <td th:text = "${membersList.bumonName}" th:value = "${membersList.bumonName}"></td>
-            <td >
+            <td>
                 <span th:text="${membersList.vendingMachine}" th:value="${membersList.vendingMachine}"></span>
                 <button class="incrementBtn" th:data-id="${membersList.id}" type="button">✚</button>
             </td>
         </tr>
     </table>
-    <div th:if = "${membersList.size() == 0}">検索条件に該当する人は存在しませんでした</div>
+    <div th:if = "${membersList.size() == 0}">
+        <p class = "attention">検索条件に該当する人は存在しませんでした</p>
+    </div>
 
     <script src = "/style.js"></script>
 </body>
