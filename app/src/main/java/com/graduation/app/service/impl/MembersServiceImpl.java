@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.graduation.app.dto.MembersDTO;
 import com.graduation.app.entity.Members;
+import com.graduation.app.form.MembersForm;
 import com.graduation.app.record.MembersRecord;
 import com.graduation.app.repository.MembersRepository;
 import com.graduation.app.service.MembersService;
@@ -20,8 +21,8 @@ public class MembersServiceImpl implements MembersService {
     private final MembersRepository membersRepository;
 
     @Override
-    public List<MembersDTO> sortMembers(){
-        List<MembersRecord> MembersRecordList = findAllMembers();
+    public List<MembersDTO> sortMembers(MembersForm form){
+        List<MembersRecord> MembersRecordList = findAllMembers(form);
         List<Members> MembersList = sendAllMembers(MembersRecordList);
         List<MembersDTO> MembersDTOList = sendAllMembersDTO(MembersList);
 
@@ -29,8 +30,8 @@ public class MembersServiceImpl implements MembersService {
     }
 
     @Override
-    public List<MembersRecord> findAllMembers() {
-        return membersRepository.selectAll();
+    public List<MembersRecord> findAllMembers(MembersForm form) {
+        return membersRepository.selectAll(form);
     }
 
     // エンティティをDTOに変換
@@ -73,7 +74,7 @@ public class MembersServiceImpl implements MembersService {
 
     // ボタンで自販機使用回数を増加
     @Override
-    public Integer incrementVendingMachine(Integer id) {
+    public String incrementVendingMachine(String id) {
         
         membersRepository.incrementVendingMachine(id);
 

@@ -68,15 +68,16 @@
         <tr th:each = "membersList : ${membersList}">
             <td th:text = "${membersList.id}" th:value = "${membersList.id}"></td>
             <td th:text = "${membersList.memberName}" th:value = "${membersList.memberName}"></td>
-            <td th:text = "${membersList.sex == 0 ? '男性' : membersList.sex == 1 ? '女性' : membersList.sex == 2 ? 'その他' : ''}"></td>
+            <td th:text = "${membersList.sexLabel}" th:valu = "${membersList.sexLabel}"></td>
             <td th:text = "${membersList.employeeNumber}" th:value = "${membersList.employeeNumber}"></td>
             <td th:text = "${membersList.bumonName}" th:value = "${membersList.bumonName}"></td>
             <td >
-                <span th:text="${membersList.vendingMachine}" th:value="${membersList.id}"></span>
+                <span th:text="${membersList.vendingMachine}" th:value="${membersList.vendingMachine}"></span>
                 <button class="incrementBtn" th:data-id="${membersList.id}" type="button">✚</button>
             </td>
         </tr>
     </table>
+    <div th:if = "${membersList.size() == 0}">検索条件に該当する人は存在しませんでした</div>
 
     <script src = "/style.js"></script>
 </body>

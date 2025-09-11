@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.graduation.app.repository.MembersRepository">
-    <select id="selectAll" resultType="com.graduation.app.record.MembersRecord">
-        SELECT id, member_name, sex, employee_number, bumon_name, vending_machine FROM members
-        <!-- FROM スキーマ名/テーブル名 -->
+    <select id="selectAll" parameterType="com.graduation.app.form.MembersForm" resultType="com.graduation.app.record.MembersRecord">
+        SELECT id, member_name, sex, employee_number, bumon_name, vending_machine FROM members<!-- FROM スキーマ名/テーブル名 -->
+        <where> <!-- 各項目の部分一致検索 -->
+            <if test = "memberName != null and memberName != ''">
+                AND member_name LIKE CONCAT('%', #{memberName}, '%')
+            </if>
+            <if test = "sex != null and sex != ''">
+                AND sex = #{sex}
+            </if>
+            <if test = "employeeNumber != null and employeeNumber != ''">
+                AND employee_number LIKE CONCAT('%', #{employeeNumber}, '%')
+            </if>
+            <if test = "bumonName != null and bumonName != ''">
+                AND bumon_name LIKE CONCAT('%', #{bumonName}, '%')
+            </if>
+            <if test = "vendingMachine != null and vendingMachine != ''">
+                AND vending_machine = #{vendingMachine}
+            </if>
+        </where>
+        ORDER BY id
     </select>
 
     <!-- vending_machine を +1 更新 -->

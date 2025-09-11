@@ -40,12 +40,12 @@ function incrementVendingMachine(id) {
         // 取得したid
         body: `id=${id}`
     })
-    // レスポンスをJSONとして処理
+    // レスポンスをJSONとして処理⇇返り値がJSONと不正（text,htmlなど）のとき以降のthenを無視
     .then(response => response.json())
     // 成功時
     .then(newValue => {
         // 更新する行を特定して値を更新
-        const row = document.querySelector(`button[data-id="${id}"]`).closest('tr');
+        const row = document.querySelector(`button[data-id="${id}"]`).closest('tr'); //⇇ここでエラーの予感
         const vendingMachineCell = row.querySelector('.vendingMachine');
         vendingMachineCell.textContent = newValue;
     })
