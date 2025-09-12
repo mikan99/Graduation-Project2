@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS members(
     sex CHARACTER(1) NOT NULL, --性別（0:男性 / 1:女性）
     employee_number CHARACTER VARYING(6), --社員番号
     bumon_name TEXT, --配属先
-    vending_machine CHARACTER(1) NOT NULL --おごり自販機使用回数
+    vending_machine INTEGER NOT NULL DEFAULT 0 --おごり自販機使用回数
 );

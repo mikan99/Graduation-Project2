@@ -30,10 +30,14 @@
         WHERE id = #{id}
     </update>
 
-    <!-- idで1件取得 -->
-    <select id="findById" resultType="com.graduation.app.record.MembersRecord">
-        SELECT id, member_name, sex, employee_number, bumon_name, vending_machine
-        FROM members
+    <update id="decrementVendingMachine">
+        UPDATE members
+        SET vending_machine = GREATEST(vending_machine - 1, 0)
         WHERE id = #{id}
+    </update>
+
+    <!-- idでvending_machineを取得 -->
+    <select id="findVendingMachineCountById" parameterType="long" resultType="int">
+        SELECT vending_machine FROM members WHERE id = #{id}
     </select>
 </mapper>

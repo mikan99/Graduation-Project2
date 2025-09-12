@@ -9,5 +9,5 @@ public class Members {
     private String sex;
     private Integer employeeNumber;
     private String bumonName;
-    private String vendingMachine;
+    private Integer vendingMachine;
 }

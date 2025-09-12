@@ -1,10 +1,10 @@
 // クリアボタンの処理
-const searchForm = document.getElementById("searchParameters");   
+const searchForm = document.getElementById("searchForm");   
 const clearBtn = document.getElementById("clearBtn"); 
 
 clearBtn.addEventListener("click", function() {
   
-    const inputs = searchParameters.querySelectorAll('input[type="text"], select');
+    const inputs = searchForm.querySelectorAll('input[type="text"], select');
     inputs.forEach(element => {
          switch (element.type) {
             case "text":
@@ -17,41 +17,30 @@ clearBtn.addEventListener("click", function() {
         });
     });
 
-// 自販機使用回数増加ボタンの処理
-// DOM読み込み後に実行
-document.addEventListener('DOMContentLoaded', function() {
-    
-    const buttons = document.querySelectorAll('.incrementBtn');
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            // data-idをし取得
-            const id = this.dataset.id;
-            incrementVendingMachine(id);
-        });
-    });
-});
 
-function incrementVendingMachine(id) {
-    fetch('/increment', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        // 取得したid
-        body: `id=${id}`
-    })
-    // レスポンスをJSONとして処理⇇返り値がJSONと不正（text,htmlなど）のとき以降のthenを無視
-    .then(response => response.json())
-    // 成功時
-    .then(newValue => {
-        // 更新する行を特定して値を更新
-        const row = document.querySelector(`button[data-id="${id}"]`).closest('tr'); //⇇ここでエラーの予感
-        const vendingMachineCell = row.querySelector('.vendingMachine');
-        vendingMachineCell.textContent = newValue;
-    })
-    // 失敗時
-    .catch(error => {
-        console.error('Error:', error);
-        alert('やろうとはしました');
-    });
-}
+// 自販機使用回数増加ボタンの処理
+document.addEventListener('click', function(e){
+  // 増加ボタン
+  if (e.target.classList.contains('incrementBtn')) {
+      const id = e.target.dataset.id;
+      fetch(`/members/${id}/increment`, { method: 'POST', credentials: 'same-origin' })
+        .then(res => {
+          if (!res.ok) throw new Error('更新失敗');
+          const countEl = document.getElementById('count-' + id);
+          countEl.textContent = String(Number(countEl.textContent) + 1);
+        })
+        .catch(err => alert(err));
+  }
+
+  // 減少ボタン
+  if (e.target.classList.contains('decrementBtn')) {
+      const id = e.target.dataset.id;
+      fetch(`/members/${id}/decrement`, { method: 'POST', credentials: 'same-origin' })
+        .then(res => {
+          if (!res.ok) throw new Error('更新失敗');
+          const countEl = document.getElementById('count-' + id);
+          countEl.textContent = String(Math.max(Number(countEl.textContent) - 1, 0)); // 0未満にならないように
+        })
+        .catch(err => alert(err));
+  }
+});

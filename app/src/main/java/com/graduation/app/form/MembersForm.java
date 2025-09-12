@@ -22,6 +22,6 @@ public class MembersForm {
     private String bumonName;
 
     //おごり自販機使用回数
-    private String vendingMachine;
+    private Integer vendingMachine;
 
 }

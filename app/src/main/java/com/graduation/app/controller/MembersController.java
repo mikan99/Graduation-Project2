@@ -9,14 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.graduation.app.dto.MembersDTO;
 import com.graduation.app.form.MembersForm;
 import com.graduation.app.service.MembersService;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class MembersController{
@@ -53,25 +52,21 @@ public class MembersController{
     }
 
     // ボタンで自販機使用回数を増やすAPI
-    // @PostMapping("/increment")
-    // @ResponseBody //viewではなくjsonを返すという設定
-    // public ResponseEntity<Integer> incrementValue(@RequestParam(name = "id", required = false) Integer id){
-    //     try{
-    //         // サービスで値を増やしてDBを更新
-    //         int newValue = membersService.incrementVendingMachine(id.intValue());
-    //         return ResponseEntity.ok(newValue);
-    //     }
-    //     catch(Exception e){
-    //         return ResponseEntity.badRequest().build();
-    //     }
-    // }
-
-    @PostMapping("/increment")
+    @PostMapping("/members/{id}/increment")
     @ResponseBody
-    public ResponseEntity<Integer> incrementValue(HttpServletRequest request) {
-    System.out.println("id = " + request.getParameter("id"));
-    return ResponseEntity.ok(123);
-}
+    public ResponseEntity<Integer> incrementValue(@PathVariable("id") Long id) {
+    // Serviceを呼んで +1 更新
+    int newCount = membersService.incrementVendingMachine(id);
 
+    // 新しい値を返す（JS側で画面に反映）
+    return ResponseEntity.ok(newCount);
+    }
+
+    @PostMapping("/members/{id}/decrement")
+    @ResponseBody
+    public ResponseEntity<Void> decrementValue(@PathVariable Long id) {
+        membersService.decrementVendingMachine(id);
+        return ResponseEntity.ok().build();
+    }
 
 }

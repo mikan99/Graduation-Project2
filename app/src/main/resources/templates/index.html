@@ -11,7 +11,7 @@
     <p class = "title">研修メンバー検索システム</p>
     <h2>検索条件</h2>
     <div class = "searchBox">
-        <form id = "searchParameters" method = "post" th:object = "${membersForm}">
+        <form id = "searchForm" method = "post" th:object = "${membersForm}">
             <div class = "form-row">
                 <!-- 検索項目＜氏名＞ -->
                 <div class = "form">
@@ -53,8 +53,8 @@
 <!--           </div> -->
                 <!-- クリア、検索ボタン -->
                 <div class = "button-area">
-                    <button type = "button" class = "clearButton", id = "clearBtn">クリア</button>
-                    <button type = "submit" class = "searchButton", id = "searchBtn">検索</button>
+                    <button type = "button" class = "clearButton" id = "clearBtn">クリア</button>
+                    <button type = "submit" class = "searchButton" id = "searchBtn">検索</button>
                 </div>
           </div>
         </form>
@@ -77,8 +77,10 @@
             <td th:text = "${membersList.employeeNumber}" th:value = "${membersList.employeeNumber}"></td>
             <td th:text = "${membersList.bumonName}" th:value = "${membersList.bumonName}"></td>
             <td>
-                <span th:text="${membersList.vendingMachine}" th:value="${membersList.vendingMachine}"></span>
-                <button class="incrementBtn" th:data-id="${membersList.id}" type="button">✚</button>
+                <button type="button" class="decrementBtn" th:data-id="${membersList.id}">―</button>
+                <!-- count-がないとJSで増減ボタンの仕分けができないらしい -->
+                <span th:text="${membersList.vendingMachine}" th:id="'count-' + ${membersList.id}"></span>
+                <button type="button" class="incrementBtn" th:data-id="${membersList.id}">✚</button>
             </td>
         </tr>
     </table>
