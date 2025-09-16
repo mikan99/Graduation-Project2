@@ -17,29 +17,33 @@ clearBtn.addEventListener("click", function() {
         });
     });
 
-
-// 自販機使用回数増加ボタンの処理
+// 自販機使用回数ボタンの処理
 document.addEventListener('click', function(e){
+  const id = e.target.dataset.id;
+  const countEl = document.getElementById('count-' + id);
+  const vendingMachine = Number(countEl.textContent);
+  
   // 増加ボタン
   if (e.target.classList.contains('incrementBtn')) {
-      const id = e.target.dataset.id;
+      if(vendingMachine == 2){
+        return;
+      }
       fetch(`/members/${id}/increment`, { method: 'POST', credentials: 'same-origin' })
         .then(res => {
           if (!res.ok) throw new Error('更新失敗');
-          const countEl = document.getElementById('count-' + id);
-          countEl.textContent = String(Number(countEl.textContent) + 1);
+          countEl.textContent = String(vendingMachine + 1);
         })
         .catch(err => alert(err));
   }
-
   // 減少ボタン
   if (e.target.classList.contains('decrementBtn')) {
-      const id = e.target.dataset.id;
+      if(vendingMachine == 0){
+        return;
+      }
       fetch(`/members/${id}/decrement`, { method: 'POST', credentials: 'same-origin' })
         .then(res => {
           if (!res.ok) throw new Error('更新失敗');
-          const countEl = document.getElementById('count-' + id);
-          countEl.textContent = String(Math.max(Number(countEl.textContent) - 1, 0)); // 0未満にならないように
+          countEl.textContent = String(vendingMachine - 1);
         })
         .catch(err => alert(err));
   }

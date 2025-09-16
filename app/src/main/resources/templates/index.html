@@ -4,11 +4,11 @@
     <meta charset = "UTF-8">
     <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
     <link rel = "stylesheet" href = "/style.css">
-    <title>研修メンバー検索システム</title>
+    <title>社員プロフィール帳</title>
 </head>
 
 <body>
-    <p class = "title">研修メンバー検索システム</p>
+    <p class = "title">社員プロフィール帳（マシュマロ）</p>
     <h2>検索条件</h2>
     <div class = "searchBox">
         <form id = "searchForm" method = "post" th:object = "${membersForm}">
@@ -70,22 +70,28 @@
             <th>配属</th>
             <th>おごり自販機使用回数（回）</th>
         </tr>
-        <tr th:each = "membersList : ${membersList}">
+        <tr th:each = "membersList : ${membersList}" 
+        th:classappend = "${membersList.sexLabel == '男性'} ? 'male-row' : (${membersList.sexLabel == '女性'} ? 'female-row' : 'other-row')">
             <td th:text = "${membersList.id}" th:value = "${membersList.id}"></td>
             <td th:text = "${membersList.memberName}" th:value = "${membersList.memberName}"></td>
             <td th:text = "${membersList.sexLabel}" th:valu = "${membersList.sexLabel}"></td>
             <td th:text = "${membersList.employeeNumber}" th:value = "${membersList.employeeNumber}"></td>
             <td th:text = "${membersList.bumonName}" th:value = "${membersList.bumonName}"></td>
             <td>
-                <button type="button" class="decrementBtn" th:data-id="${membersList.id}">―</button>
-                <!-- count-がないとJSで増減ボタンの仕分けができないらしい -->
-                <span th:text="${membersList.vendingMachine}" th:id="'count-' + ${membersList.id}"></span>
-                <button type="button" class="incrementBtn" th:data-id="${membersList.id}">✚</button>
+                <div class = "vendingMachineBtn">
+                    <button type="button" class="decrementBtn" th:data-id="${membersList.id}">―</button>
+                    <!-- count-がないとJSで増減ボタンの仕分けができないらしい -->
+                    <span th:text="${membersList.vendingMachine}" th:id="'count-' + ${membersList.id}"></span>
+                    <button type="button" class="incrementBtn" th:data-id="${membersList.id}">✚</button>
+                </div>
             </td>
         </tr>
     </table>
     <div th:if = "${membersList.size() == 0}">
         <p class = "attention">検索条件に該当する人は存在しませんでした</p>
+    </div>
+    <div class = "atsuoshi">
+        <a href = "https://ab7.sharepoint.com/:x:/s/ORG_ABDI/EdfAHeoIgRlKunJ6HqiHccYBlEbH4Svdt6XtOfYUIIfesQ?e=lz51hZ" target="_blank">「あつ推し」はここをクリック</a>
     </div>
 
     <script src = "/style.js"></script>

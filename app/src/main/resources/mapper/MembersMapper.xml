@@ -16,7 +16,7 @@
             <if test = "bumonName != null and bumonName != ''">
                 AND bumon_name LIKE CONCAT('%', #{bumonName}, '%')
             </if>
-            <if test = "vendingMachine != null and vendingMachine != ''">
+            <if test = "vendingMachine != null">
                 AND vending_machine = #{vendingMachine}
             </if>
         </where>
@@ -26,7 +26,7 @@
     <!-- vending_machine を +1 更新 -->
     <update id="incrementVendingMachine">
         UPDATE members
-        SET vending_machine = vending_machine + 1
+        SET vending_machine = LEAST(vending_machine + 1, 2)
         WHERE id = #{id}
     </update>
 

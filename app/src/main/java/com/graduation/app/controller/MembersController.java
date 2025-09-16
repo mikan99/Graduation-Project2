@@ -54,19 +54,16 @@ public class MembersController{
     // ボタンで自販機使用回数を増やすAPI
     @PostMapping("/members/{id}/increment")
     @ResponseBody
-    public ResponseEntity<Integer> incrementValue(@PathVariable("id") Long id) {
-    // Serviceを呼んで +1 更新
-    int newCount = membersService.incrementVendingMachine(id);
-
-    // 新しい値を返す（JS側で画面に反映）
-    return ResponseEntity.ok(newCount);
+    public ResponseEntity<Integer> incrementValue(@PathVariable Long id) {
+        int newCount = membersService.incrementVendingMachine(id); // Serviceを呼んで +1 更新
+        return ResponseEntity.ok(newCount); // 新しい値を返す（JS側で画面に反映）
     }
 
     @PostMapping("/members/{id}/decrement")
     @ResponseBody
-    public ResponseEntity<Void> decrementValue(@PathVariable Long id) {
-        membersService.decrementVendingMachine(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Integer> decrementValue(@PathVariable Long id) {
+        int newCount = membersService.decrementVendingMachine(id);
+        return ResponseEntity.ok(newCount);
     }
 
 }

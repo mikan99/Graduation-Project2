@@ -93,7 +93,19 @@ th {
 }
 
 tr:hover {
-    background-color: #f8f9fa;
+    background-color: #edeff1;
+}
+
+.male-row {
+    background-color: rgb(241 250 252);
+}
+
+.female-row {
+    background-color: rgb(255 248 249);
+}
+
+.other-row {
+    background-color: lightgreen;
 }
 
 .no-results {
@@ -119,7 +131,7 @@ tr:hover {
 p.title {
     text-align: center;
     font-size: 2rem;
-    padding: 1.25rem; /* 20px → 1.25rem */
+    padding: 1.5rem 1.25rem; /* 20px → 1.25rem */
     border-radius: 1.5rem; /* 8px → 0.5rem */
     box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.1); /* 2px/4px */
     background-color: orange;
@@ -144,4 +156,21 @@ p.attention {
   text-align: center;
   font-size: 1.2rem;
   font-weight: bold;
+}
+
+.vendingMachineBtn {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.atsuoshi {
+    width: 16rem;
+    border-radius: 1rem;
+    background-color: #d4f377;
+    margin-top: 1rem;
+    margin-right: 3rem;
+    margin-left: auto;
+    text-align: center;
 }
