@@ -6,7 +6,8 @@ import lombok.Data;
 public class Members {
     private int id;
     private String memberName;
-    private int sex;
-    private int employeeNumber;
+    private String sex;
+    private Integer employeeNumber;
     private String bumonName;
+    private Integer vendingMachine;
 }
