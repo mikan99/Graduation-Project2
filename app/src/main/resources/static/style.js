@@ -26,6 +26,7 @@ document.addEventListener('click', function(e){
   // 増加ボタン
   if (e.target.classList.contains('incrementBtn')) {
       if(vendingMachine == 2){
+        alert('２回以上には増やせません');
         return;
       }
       fetch(`/members/${id}/increment`, { method: 'POST', credentials: 'same-origin' })
@@ -38,6 +39,7 @@ document.addEventListener('click', function(e){
   // 減少ボタン
   if (e.target.classList.contains('decrementBtn')) {
       if(vendingMachine == 0){
+        alert('０回以下には減らせません');
         return;
       }
       fetch(`/members/${id}/decrement`, { method: 'POST', credentials: 'same-origin' })
