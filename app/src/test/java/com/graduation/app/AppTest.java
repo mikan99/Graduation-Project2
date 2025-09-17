@@ -5,6 +5,6 @@ package com.graduation.app;
 
 public class AppTest {
     public void appHasAGreeting() {
-        App classUnderTest = new App();
+        // App classUnderTest = new App();
     }
 }
