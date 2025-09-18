@@ -7,7 +7,7 @@ public class MembersDTO {
     private int id;
     private String memberName;
     private String sex;
-    private Integer employeeNumber;
+    private String employeeNumber;
     private String bumonName;
     private Integer vendingMachine;
 

@@ -37,18 +37,21 @@ public class MembersController{
     // 検索結果
     @PostMapping("/")
     public String postSearch(@Validated MembersForm form, BindingResult bindingResult, Model model){
-        List<MembersDTO> membersList = membersService.sortMembers(form);
         // 入力エラーチェック
         if(bindingResult.hasErrors()){
+            List<MembersDTO> membersList = membersService.getAllMembers(); // 全件検索
+            model.addAttribute("membersForm", form);
+            model.addAttribute("membersList", membersList);
 
+            return "index";
         }
         else{
-
+            List<MembersDTO> membersList = membersService.sortMembers(form); // 条件付き検索
+            model.addAttribute("membersForm", form);
+            model.addAttribute("membersList", membersList);
+            
+            return "index";
         }
-        model.addAttribute("membersForm", form);
-        model.addAttribute("membersList", membersList);
-        
-        return "index";
     }
 
     // ボタンで自販機使用回数を増やすAPI

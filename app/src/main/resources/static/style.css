@@ -174,3 +174,19 @@ p.attention {
     margin-left: auto;
     text-align: center;
 }
+
+.error-message {
+    margin: auto;
+    padding: 1rem 1.25rem;
+    background-color: #ffdddd;
+    border: 0.0625rem solid #ff5c5c;
+    border-radius: 0.5rem;
+    color: #097109;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.15);
+}
+
+.error-message ul {
+    list-style: none;
+}

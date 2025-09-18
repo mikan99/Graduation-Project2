@@ -10,6 +10,7 @@ import com.graduation.app.record.MembersRecord;
 // DTO、entity、Recordを用いて記述
 public interface MembersService {
     
+    public List<MembersDTO> getAllMembers();
     public List<MembersDTO> sortMembers(MembersForm form);
     public List<MembersRecord> findAllMembers(MembersForm form);
     public List<MembersDTO> sendAllMembersDTO(List<Members> MembersList);
