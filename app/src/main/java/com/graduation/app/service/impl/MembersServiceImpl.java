@@ -20,6 +20,20 @@ public class MembersServiceImpl implements MembersService {
 
     private final MembersRepository membersRepository;
 
+    // 全件検索
+    @Override
+    public List<MembersDTO> getAllMembers(){
+        MembersForm emptyForm = new MembersForm();
+        return sortMembers(emptyForm);
+    }
+
+    // 条件付き検索
+    @Override
+    public List<MembersRecord> findAllMembers(MembersForm form) {
+        return membersRepository.selectAll(form);
+    }
+
+    // formからDTOに変換（プロセスは後述）
     @Override
     public List<MembersDTO> sortMembers(MembersForm form){
         List<MembersRecord> MembersRecordList = findAllMembers(form);
@@ -27,11 +41,6 @@ public class MembersServiceImpl implements MembersService {
         List<MembersDTO> MembersDTOList = sendAllMembersDTO(MembersList);
 
         return MembersDTOList;
-    }
-
-    @Override
-    public List<MembersRecord> findAllMembers(MembersForm form) {
-        return membersRepository.selectAll(form);
     }
 
     // エンティティをDTOに変換
