@@ -23,10 +23,10 @@ public class DBResetServiceImpl implements DBResetService{
     }
 
     @Transactional
-    @Scheduled(cron = "* 1 * * * *") // 秒　分　時　日　月　曜日
+    @Scheduled(cron = "0 * * * * *") // 秒　分　時　日　月　曜日（今は1分毎）
     public void resetDatabase() throws Exception {
         try (Connection conn = data.getConnection()) {
-            conn.createStatement().execute("DELETE FROM members"); // データ削除
+            conn.createStatement().execute("TRUNCATE TABLE members RESTART IDENTITY"); // データ削除
             ScriptUtils.executeSqlScript(conn, new ClassPathResource("data/01_members.sql")); // データ挿入
         }
     }
