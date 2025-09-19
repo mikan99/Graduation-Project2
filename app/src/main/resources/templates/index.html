@@ -85,10 +85,10 @@
             <td th:text = "${membersList.bumonName}" th:value = "${membersList.bumonName}"></td>
             <td>
                 <div class = "vendingMachineBtn">
-                    <button type="button" class="decrementBtn" th:data-id="${membersList.id}">―</button>
+                    <button type = "button" class = "decrementBtn" th:data-id = "${membersList.id}">―</button>
                     <!-- count-がないとJSで増減ボタンの仕分けができないらしい -->
-                    <span th:text="${membersList.vendingMachine}" th:id="'count-' + ${membersList.id}"></span>
-                    <button type="button" class="incrementBtn" th:data-id="${membersList.id}">✚</button>
+                    <span th:text = "${membersList.vendingMachine}" th:id = "'count-' + ${membersList.id}"></span>
+                    <button type = "button" class = "incrementBtn" th:data-id = "${membersList.id}">✚</button>
                 </div>
             </td>
         </tr>

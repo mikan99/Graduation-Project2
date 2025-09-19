@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version = "1.0" encoding = "UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.graduation.app.repository.MembersRepository">
-    <select id="selectAll" parameterType="com.graduation.app.form.MembersForm" resultType="com.graduation.app.record.MembersRecord">
+<mapper namespace = "com.graduation.app.repository.MembersRepository">
+    <select id = "selectAll" parameterType = "com.graduation.app.form.MembersForm" resultType = "com.graduation.app.record.MembersRecord">
         SELECT id, member_name, sex, employee_number, bumon_name, vending_machine FROM members<!-- FROM スキーマ名/テーブル名 -->
         <where> <!-- 各項目の部分一致検索 -->
             <if test = "memberName != null and memberName != ''">
@@ -24,20 +24,20 @@
     </select>
 
     <!-- vending_machine を +1 更新 -->
-    <update id="incrementVendingMachine">
+    <update id = "incrementVendingMachine">
         UPDATE members
         SET vending_machine = LEAST(vending_machine + 1, 2)
         WHERE id = #{id}
     </update>
 
-    <update id="decrementVendingMachine">
+    <update id = "decrementVendingMachine">
         UPDATE members
         SET vending_machine = GREATEST(vending_machine - 1, 0)
         WHERE id = #{id}
     </update>
 
     <!-- idでvending_machineを取得 -->
-    <select id="findVendingMachineCountById" parameterType="long" resultType="int">
+    <select id = "findVendingMachineCountById" parameterType = "long" resultType = "int">
         SELECT vending_machine FROM members WHERE id = #{id}
     </select>
 </mapper>
