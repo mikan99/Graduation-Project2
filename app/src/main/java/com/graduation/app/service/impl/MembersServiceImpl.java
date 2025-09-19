@@ -81,12 +81,14 @@ public class MembersServiceImpl implements MembersService {
         return membersList;
     }
 
+    @Override
     // ボタンで自販機使用回数を増加
     public int incrementVendingMachine(Long id) {
         membersRepository.incrementVendingMachine(id);
         return membersRepository.findVendingMachineCountById(id);
     }
-
+    
+    @Override
     // ボタンで自販機使用回数を減少
     public int decrementVendingMachine(Long id) {
         membersRepository.decrementVendingMachine(id);
